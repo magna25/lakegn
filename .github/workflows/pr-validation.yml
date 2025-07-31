@@ -1,0 +1,42 @@
+name: PR Validation
+
+on:
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: npm ci
+      
+    - name: Run ESLint
+      run: npm run lint
+      
+    - name: Type check
+      run: npx tsc --noEmit
+      
+    - name: Build application
+      run: npm run build
+      env:
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        
+    - name: Validate build artifacts
+      run: |
+        if [ ! -d ".next" ]; then
+          echo "Build failed - .next directory not found"
+          exit 1
+        fi
+        echo "✅ Build validation passed"
