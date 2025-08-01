@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="am">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Lakegn - Facebook Ad 1</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700,800&family=Inter:wght@400,600&display=swap');
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .ad-container {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #000000 100%);
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .background-shapes {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .circle1 {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #10b981 0%, #059669 100%);
+            opacity: 0.1;
+            top: -100px;
+            left: -50px;
+        }
+
+        .circle2 {
+            position: absolute;
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #059669 0%, #047857 100%);
+            opacity: 0.1;
+            bottom: -100px;
+            right: -100px;
+        }
+
+        .content {
+            position: relative;
+            z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 40px;
+            color: white;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 50px;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            text-transform: uppercase;
+        }
+
+        .flags-container {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .flag {
+            width: 32px;
+            height: 24px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            transition: transform 0.3s ease;
+        }
+
+        .flag:hover {
+            transform: scale(1.1);
+        }
+
+        .main-title {
+            font-size: 42px;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        .highlight {
+            color: #34d399;
+            background: linear-gradient(to right, #34d399 0%, #10b981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 14px;
+            color: #d1d5db;
+            line-height: 1.4;
+            margin-bottom: 30px;
+            max-width: 280px;
+        }
+
+        .cta-button {
+            background: #10b981;
+            color: #000;
+            padding: 18px 36px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 18px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 24px rgba(16, 185, 129, 0.5);
+            align-self: flex-start;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 2px solid transparent;
+            background-image: linear-gradient(#10b981, #10b981), linear-gradient(45deg, #34d399, #059669);
+            background-origin: border-box;
+            background-clip: padding-box, border-box;
+        }
+
+        .cta-button:hover {
+            background: #34d399;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
+        }
+
+        .student-image {
+            position: absolute;
+            bottom: 0;
+            right: 30px;
+            height: 280px;
+            z-index: 5;
+        }
+
+        .student-image img {
+            height: 100%;
+            width: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 4px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .decorative-blur1 {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            background: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            filter: blur(40px);
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .decorative-blur2 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            background: rgba(5, 150, 105, 0.2);
+            border-radius: 50%;
+            filter: blur(30px);
+            top: 100px;
+            left: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="ad-container">
+        <div class="background-shapes">
+            <div class="circle1"></div>
+            <div class="circle2"></div>
+            <div class="decorative-blur1"></div>
+            <div class="decorative-blur2"></div>
+        </div>
+        
+        <div class="content">
+            <div class="header-container">
+                <div class="logo">Lakegn.com</div>
+                
+                <div class="flags-container">
+                    <div class="flag">🇺🇸</div>
+                    <div class="flag">🇨🇦</div>
+                    <div class="flag">🇬🇧</div>
+                    <div class="flag">🇦🇺</div>
+                    <div class="flag">🇩🇪</div>
+                </div>
+            </div>
+            
+            <h1 class="main-title">
+                ወዴት<br>
+                <span class="highlight">እንላክዎት?</span>
+            </h1>
+            
+            <p class="subtitle">
+                ለጉዞ፣ ቪዛ ማመልከቻ፣ የውጭ ሀገር ትምህርት እና ኢቨንት/ኮንፈረንስ ሙያዊ አማካሪ አገልግሎት
+            </p>
+            
+            <a href="#" class="cta-button">አሁን አመልክት</a>
+        </div>
+        
+        <div class="student-image">
+            <img src="../src/assets/images/student-x.png" alt="ተማሪ">
+        </div>
+    </div>
+</body>
+</html>

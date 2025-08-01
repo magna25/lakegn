@@ -5,7 +5,6 @@ export const en = {
     services: "Services",
     blog: "Blog",
     applyNow: "Apply Now",
-    contact: "Contact",
     getStarted: "Get Started"
   },
   hero: {
@@ -43,13 +42,13 @@ export const en = {
       ]
     },
     workVisas: {
-      title: "Work Visas",
-      description: "Professional support for work permit applications and job placement overseas",
+      title: "Events/Conference Visas",
+      description: "Professional support for events and conference visa applications and international participation",
       features: [
-        "Job search assistance",
-        "Work permit filing",
-        "Resume optimization", 
-        "Employer connections"
+        "Event registration assistance",
+        "Conference visa filing",
+        "Invitation letter support", 
+        "Event organizer connections"
       ]
     },
     visitTourism: {
@@ -82,7 +81,7 @@ export const en = {
     purpose: "Purpose of Application",
     purposeOptions: {
       school: "School",
-      work: "Work", 
+      work: "Events/Conference", 
       visit: "Visit for Vacation"
     },
     submit: "Submit Application",

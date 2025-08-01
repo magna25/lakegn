@@ -5,7 +5,6 @@ export const am = {
     services: "አገልግሎቶች",
     blog: "ብሎግ",
     applyNow: "አሁን አመልክት",
-    contact: "ለመገናኘት",
     getStarted: "ጀምር"
   },
   hero: {
@@ -43,13 +42,13 @@ export const am = {
       ]
     },
     workVisas: {
-      title: "የስራ ቪዛዎች",
-      description: "ለስራ ፈቃድ ማመልከቻዎች እና የውጭ ሀገር ስራ ቦታ ሙያዊ ድጋፍ",
+      title: "የኢቨንት/ኮንፈረንስ ቪዛዎች",
+      description: "ለኢቨንት እና ኮንፈረንስ ቪዛ ማመልከቻዎች እና ዓለም አቀፍ ተሳትፎ ሙያዊ ድጋፍ",
       features: [
-        "የስራ ፍለጋ እርዳታ",
-        "የስራ ፈቃድ አቅራቢ",
-        "የሪዙሜ ማሻሻያ",
-        "የአሰሪ ግንኙነቶች"
+        "የኢቨንት ምዝገባ እርዳታ",
+        "የኮንፈረንስ ቪዛ ማስገባት",
+        "የግብዣ ደብዳቤ ድጋፍ",
+        "የኢቨንት አዘጋጅ ግንኙነቶች"
       ]
     },
     visitTourism: {
@@ -82,7 +81,7 @@ export const am = {
     purpose: "የማመልከቻ ዓላማ",
     purposeOptions: {
       school: "ትምህርት",
-      work: "ስራ",
+      work: "ኢቨንት/ኮንፈረንስ",
       visit: "ለዕረፍት ጉብኝት"
     },
     submit: "ማመልከቻ አስገባ",

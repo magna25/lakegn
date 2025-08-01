@@ -4,8 +4,8 @@ import Contact from '@/components/Contact'
 
 export const metadata = {
   title: 'Blog & Guides | Lakegn Consultancy Services',
-  description: 'Expert guides and blog posts on study abroad, work visas, tourist applications, and visa appointment processes. Professional consultation insights from Lakegn.',
-  keywords: 'study abroad guides, work visa blog, tourist visa information, visa consultation, immigration guides',
+  description: 'Expert guides and blog posts on study abroad, events/conference visas, tourist applications, and visa appointment processes. Professional consultation insights from Lakegn.',
+  keywords: 'study abroad guides, events conference visa blog, tourist visa information, visa consultation, immigration guides',
 }
 
 export default function BlogPage() {
@@ -46,7 +46,7 @@ export default function BlogPage() {
                 EXPERT GUIDES & BLOG
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
-                Professional insights and comprehensive guides for study abroad, work visas, tourism, and visa application processes
+                Professional insights and comprehensive guides for study abroad, events/conference visas, tourism, and visa application processes
               </p>
             </div>
           </div>

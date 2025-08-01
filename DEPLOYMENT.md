@@ -2,7 +2,7 @@
 
 ## GitHub Actions Setup
 
-This project uses GitHub Actions for CI/CD with automatic deployment to DigitalOcean.
+This project uses GitHub Actions for CI/CD with automatic deployment to Vercel.
 
 ### Required GitHub Secrets
 
@@ -12,77 +12,52 @@ Add these secrets in your GitHub repository settings (Settings → Secrets and v
 - `TELEGRAM_BOT_TOKEN` - Your Telegram bot token from BotFather
 - `TELEGRAM_CHAT_ID` - Your Telegram channel/chat ID
 
-#### DigitalOcean Server Configuration
-- `DO_HOST` - Your DigitalOcean droplet IP address
-- `DO_USERNAME` - SSH username (usually 'root' or 'ubuntu')
-- `DO_SSH_KEY` - Private SSH key for server access
-- `DO_PORT` - SSH port (optional, defaults to 22)
+#### Vercel Configuration
+- `VERCEL_TOKEN` - Your Vercel API token
+- `VERCEL_ORG_ID` - Your Vercel organization ID
+- `VERCEL_PROJECT_ID` - Your Vercel project ID
 
-### DigitalOcean Server Setup
+### Vercel Setup
 
-1. **Install Node.js and PM2:**
+1. **Install Vercel CLI:**
 ```bash
-# Update system
-sudo apt update && sudo apt upgrade -y
-
-# Install Node.js 18
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt-get install -y nodejs
-
-# Install PM2 globally
-sudo npm install -g pm2
-
-# Setup PM2 to start on boot
-pm2 startup
-sudo env PATH=$PATH:/usr/bin /usr/lib/node_modules/pm2/bin/pm2 startup systemd -u $USER --hp $HOME
+npm install -g vercel
 ```
 
-2. **Create application directory:**
+2. **Login to Vercel:**
 ```bash
-sudo mkdir -p /var/www/lakegn
-sudo chown $USER:$USER /var/www/lakegn
+vercel login
 ```
 
-3. **Setup log directory:**
+3. **Initialize your project:**
 ```bash
-sudo mkdir -p /var/log/pm2
-sudo chown $USER:$USER /var/log/pm2
+# In your project directory
+vercel
+
+# Follow the prompts:
+# - Link to existing project or create new? Create new
+# - Project name: lakegn
+# - Directory: ./
+# - Override settings? No
 ```
 
-4. **Configure Nginx (optional but recommended):**
+4. **Get your Vercel IDs:**
 ```bash
-sudo apt install nginx
-
-# Create nginx config
-sudo nano /etc/nginx/sites-available/lakegn
+# This creates .vercel/project.json with your IDs
+cat .vercel/project.json
 ```
 
-Add this configuration:
-```nginx
-server {
-    listen 80;
-    server_name your-domain.com;
-    
-    location / {
-        proxy_pass http://localhost:3000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection 'upgrade';
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_cache_bypass $http_upgrade;
-    }
-}
-```
+5. **Get your Vercel Token:**
+- Go to https://vercel.com/account/tokens
+- Create a new token
+- Copy the token value
 
-Enable the site:
-```bash
-sudo ln -s /etc/nginx/sites-available/lakegn /etc/nginx/sites-enabled/
-sudo nginx -t
-sudo systemctl restart nginx
-```
+6. **Add Environment Variables in Vercel:**
+- Go to your project dashboard on Vercel
+- Settings → Environment Variables
+- Add:
+  - `TELEGRAM_BOT_TOKEN` = `7306110680:AAG1soLSWcovHSHOVSsSxSpmtFIPcfZImBk`
+  - `TELEGRAM_CHAT_ID` = `-1002371990205`
 
 ### Workflow Overview
 
@@ -96,46 +71,52 @@ sudo systemctl restart nginx
 #### Deployment (`.github/workflows/deploy.yml`)
 - Triggers on pushes to `main` branch
 - Builds the application
-- Deploys to DigitalOcean via SSH
-- Uses PM2 for process management
-- Creates backups of previous deployment
+- Deploys to Vercel automatically
+- Zero-downtime deployments
+- Automatic rollbacks on failure
 
 ### Manual Deployment Commands
 
 If you need to deploy manually:
 
 ```bash
-# On your local machine
-npm run build
+# Install Vercel CLI
+npm install -g vercel
 
-# Copy files to server
-scp -r .next package*.json next.config.js user@your-server:/var/www/lakegn/current/
+# Deploy to production
+vercel --prod
 
-# On the server
-cd /var/www/lakegn/current
-npm ci --only=production
-pm2 restart lakegn-app
+# Deploy to preview
+vercel
 ```
 
 ### Monitoring
 
-Check application status:
-```bash
-pm2 status
-pm2 logs lakegn-app
-pm2 monit
-```
+Monitor your application:
+- Vercel Dashboard: https://vercel.com/dashboard
+- View logs: `vercel logs`
+- View deployments: `vercel ls`
+- View functions: Vercel dashboard → Functions tab
 
 ### Troubleshooting
 
-1. **Build fails**: Check if all environment variables are set in GitHub secrets
-2. **SSH connection fails**: Verify DO_HOST, DO_USERNAME, and DO_SSH_KEY
-3. **Application won't start**: Check PM2 logs with `pm2 logs lakegn-app`
-4. **Environment variables missing**: Ensure secrets are properly configured in GitHub
+1. **Build fails**: Check if all environment variables are set in Vercel dashboard and GitHub secrets
+2. **Deployment fails**: Verify VERCEL_TOKEN, VERCEL_ORG_ID, and VERCEL_PROJECT_ID in GitHub secrets
+3. **API routes not working**: Check function logs in Vercel dashboard
+4. **Environment variables missing**: Ensure they're set in both Vercel dashboard and GitHub secrets
+
+### Vercel Benefits
+
+- **Free tier**: Perfect for consultancies (1,000 function calls/day)
+- **Automatic HTTPS**: SSL certificates included
+- **Global CDN**: Fast worldwide delivery
+- **Serverless functions**: Your API routes scale automatically
+- **Zero config**: Works out of the box with Next.js
+- **Custom domains**: Free custom domain support
 
 ### Security Notes
 
 - Never commit `.env.local` or sensitive credentials
-- Use SSH keys instead of passwords
-- Regularly update server packages
-- Monitor application logs for security issues
+- Environment variables are encrypted in Vercel
+- Automatic security headers
+- Monitor function execution in Vercel dashboard

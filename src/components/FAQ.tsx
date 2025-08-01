@@ -14,7 +14,7 @@ export default function FAQ() {
   const faqs = [
     {
       question: "How does the consultation process work?",
-      answer: "Our consultation process begins when you contact us through our website or phone. We schedule an initial consultation to understand your goals - whether for study abroad, work visas, or travel. Our experts then assess your eligibility, guide you through document preparation, and support you throughout the entire application process until successful completion."
+      answer: "Our consultation process begins when you contact us through our website or phone. We schedule an initial consultation to understand your goals - whether for study abroad, events/conference visas, or travel. Our experts then assess your eligibility, guide you through document preparation, and support you throughout the entire application process until successful completion."
     },
     {
       question: "What documents do I need to provide?",
@@ -22,7 +22,7 @@ export default function FAQ() {
     },
     {
       question: "How long does the application process take?",
-      answer: "Processing times vary by destination and visa type. Tourist visas typically take 2-4 weeks, student visas 2-4 months, and work visas 3-8 months. We provide realistic timelines during consultation and keep you updated throughout the process. We recommend starting applications well in advance of your intended travel dates."
+      answer: "Processing times vary by destination and visa type. Tourist visas typically take 2-4 weeks, student visas 2-4 months, and events/conference visas 3-8 months. We provide realistic timelines during consultation and keep you updated throughout the process. We recommend starting applications well in advance of your intended travel dates."
     },
     {
       question: "Do I need to show proof of sufficient funds?",

@@ -35,9 +35,6 @@ export default function Header() {
             <a href="/#apply" className="text-white/90 hover:text-white transition duration-200">
               {t.header.applyNow}
             </a>
-            <a href="/#contact" className="text-white/90 hover:text-white transition duration-200">
-              {t.header.contact}
-            </a>
             <LanguageSwitcher />
             <a
               href="#apply"
@@ -90,9 +87,6 @@ export default function Header() {
               </a>
               <a href="/#apply" onClick={() => setIsMenuOpen(false)} className="block px-3 py-3 text-xl text-white hover:text-green-400 transition duration-200">
                 {t.header.applyNow}
-              </a>
-              <a href="/#contact" onClick={() => setIsMenuOpen(false)} className="block px-3 py-3 text-xl text-white hover:text-green-400 transition duration-200">
-                {t.header.contact}
               </a>
               <div className="px-3 py-3">
                 <LanguageSwitcher />

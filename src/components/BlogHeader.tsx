@@ -35,9 +35,6 @@ export default function BlogHeader() {
             <a href="/#apply" className="text-gray-700 hover:text-gray-900 transition duration-200">
               {t.header.applyNow}
             </a>
-            <a href="/#contact" className="text-gray-700 hover:text-gray-900 transition duration-200">
-              {t.header.contact}
-            </a>
             <LanguageSwitcher />
             <a
               href="#apply"
@@ -90,9 +87,6 @@ export default function BlogHeader() {
               </a>
               <a href="/#apply" onClick={() => setIsMenuOpen(false)} className="block px-3 py-3 text-xl text-gray-900 hover:text-emerald-600 transition duration-200">
                 {t.header.applyNow}
-              </a>
-              <a href="/#contact" onClick={() => setIsMenuOpen(false)} className="block px-3 py-3 text-xl text-gray-900 hover:text-emerald-600 transition duration-200">
-                {t.header.contact}
               </a>
               <div className="px-3 py-3">
                 <LanguageSwitcher />

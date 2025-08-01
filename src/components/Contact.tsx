@@ -34,8 +34,8 @@ export default function Contact() {
           <div>
             <h4 className="text-lg font-semibold mb-4">{t.contact.title}</h4>
             <div className="space-y-2 text-gray-400">
-              <p>Email: info@lakegn.com</p>
-              <p>Phone: +1 (555) 123-4567</p>
+              <p>Email: Lakegnconsultancy@gmail.com</p>
+              <p>Phone: +251989485457</p>
               <p>Hours: Mon-Fri 9AM-6PM</p>
             </div>
           </div>

@@ -13,10 +13,15 @@ export default function ApplicationForm() {
     purpose: ''
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [submitStatus, setSubmitStatus] = useState<{type: 'success' | 'error' | null, message: string}>({
+    type: null,
+    message: ''
+  })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    setSubmitStatus({ type: null, message: '' })
     
     try {
       const response = await fetch('/api/send-notification', {
@@ -28,7 +33,10 @@ export default function ApplicationForm() {
       })
       
       if (response.ok) {
-        alert(t.applicationForm.submitSuccess)
+        setSubmitStatus({
+          type: 'success',
+          message: t.applicationForm.submitSuccess
+        })
         setFormData({
           fullName: '',
           dateOfBirth: '',
@@ -41,7 +49,10 @@ export default function ApplicationForm() {
       }
     } catch (error) {
       console.error('Error submitting form:', error)
-      alert('There was an error submitting your application. Please try again.')
+      setSubmitStatus({
+        type: 'error',
+        message: 'There was an error submitting your application. Please try again.'
+      })
     } finally {
       setIsSubmitting(false)
     }
@@ -71,22 +82,20 @@ export default function ApplicationForm() {
           <div className="absolute -top-6 -right-6 w-24 h-24 bg-green-100 rounded-full opacity-50"></div>
           <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-gray-100 rounded-full opacity-50"></div>
           
-          {/* Moving gradient border */}
-          <div className="relative rounded-3xl p-[2px] bg-gradient-to-r from-green-200 via-gray-200 to-green-200 bg-[length:200%_200%] animate-pulse">
+          {/* Gradient border */}
+          <div className="relative rounded-3xl p-[2px] bg-gradient-to-r from-green-200 via-gray-200 to-green-200">
+            {submitStatus.type === 'success' ? (
+              <div className="relative bg-white rounded-3xl shadow-xl p-8 md:p-12 text-center">
+                <div className="mb-6">
+                  <svg className="w-20 h-20 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                </div>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">Success!</h3>
+                <p className="text-lg text-gray-600">{submitStatus.message}</p>
+              </div>
+            ) : (
             <form onSubmit={handleSubmit} className="relative bg-white rounded-3xl shadow-xl p-8 md:p-12">
-              <style jsx>{`
-                @keyframes gradientMove {
-                  0% { background-position: 0% 50%; }
-                  50% { background-position: 100% 50%; }
-                  100% { background-position: 0% 50%; }
-                }
-                .moving-gradient {
-                  background: linear-gradient(45deg, #dcfce7, #f3f4f6, #dcfce7, #f3f4f6);
-                  background-size: 400% 400%;
-                  animation: gradientMove 8s ease infinite;
-                }
-              `}</style>
-              <div className="absolute inset-0 rounded-3xl moving-gradient opacity-50 -z-10"></div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
               <div className="space-y-2">
                 <label htmlFor="fullName" className="block text-sm font-medium text-gray-800">
@@ -187,7 +196,16 @@ export default function ApplicationForm() {
             >
               {isSubmitting ? 'Submitting...' : `${t.applicationForm.submit} →`}
             </button>
+
+            {submitStatus.type === 'error' && (
+              <div className="mt-6 p-4 rounded-xl bg-red-50 border border-red-200 text-red-800">
+                <p className="text-center font-medium">
+                  {submitStatus.message}
+                </p>
+              </div>
+            )}
             </form>
+            )}
           </div>
         </div>
       </div>

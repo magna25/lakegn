@@ -1,4 +1,4 @@
-name: Deploy to DigitalOcean
+name: Deploy to Vercel
 
 on:
   push:
@@ -27,69 +27,11 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         
-    - name: Create deployment package
-      run: |
-        mkdir -p deploy
-        cp -r .next deploy/
-        cp -r public deploy/ 2>/dev/null || true
-        cp package*.json deploy/
-        cp next.config.js deploy/
-        
-    - name: Deploy to DigitalOcean
-      uses: appleboy/ssh-action@v1.0.3
+    - name: Deploy to Vercel
+      uses: amondnet/vercel-action@v25
       with:
-        host: ${{ secrets.DO_HOST }}
-        username: ${{ secrets.DO_USERNAME }}
-        key: ${{ secrets.DO_SSH_KEY }}
-        port: ${{ secrets.DO_PORT || 22 }}
-        script: |
-          # Navigate to app directory
-          cd /var/www/lakegn
-          
-          # Stop PM2 process
-          pm2 stop lakegn-app || true
-          
-          # Backup current deployment
-          if [ -d "current" ]; then
-            rm -rf backup
-            mv current backup
-          fi
-          
-          # Create new deployment directory
-          mkdir -p current
-          
-    - name: Upload files to DigitalOcean
-      uses: appleboy/scp-action@v0.1.7
-      with:
-        host: ${{ secrets.DO_HOST }}
-        username: ${{ secrets.DO_USERNAME }}
-        key: ${{ secrets.DO_SSH_KEY }}
-        port: ${{ secrets.DO_PORT || 22 }}
-        source: "deploy/*"
-        target: "/var/www/lakegn/current/"
-        strip_components: 1
-        
-    - name: Start application
-      uses: appleboy/ssh-action@v1.0.3
-      with:
-        host: ${{ secrets.DO_HOST }}
-        username: ${{ secrets.DO_USERNAME }}
-        key: ${{ secrets.DO_SSH_KEY }}
-        port: ${{ secrets.DO_PORT || 22 }}
-        script: |
-          cd /var/www/lakegn/current
-          
-          # Install production dependencies
-          npm ci --only=production
-          
-          # Create environment file
-          echo "TELEGRAM_BOT_TOKEN=${{ secrets.TELEGRAM_BOT_TOKEN }}" > .env.local
-          echo "TELEGRAM_CHAT_ID=${{ secrets.TELEGRAM_CHAT_ID }}" >> .env.local
-          
-          # Start with PM2
-          pm2 start ecosystem.config.js --env production || pm2 restart lakegn-app
-          
-          # Save PM2 configuration
-          pm2 save
-          
-          echo "✅ Deployment completed successfully"
+        vercel-token: ${{ secrets.VERCEL_TOKEN }}
+        vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+        vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+        vercel-args: '--prod'
+        working-directory: ./
