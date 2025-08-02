@@ -5,6 +5,8 @@ interface FormData {
   dateOfBirth: string
   phoneNumber: string
   email: string
+  country: string
+  hasPassport: string
   purpose: string
 }
 
@@ -13,7 +15,7 @@ export async function POST(request: NextRequest) {
     const formData: FormData = await request.json()
     
     // Validate required fields
-    if (!formData.fullName || !formData.email || !formData.phoneNumber || !formData.purpose) {
+    if (!formData.fullName || !formData.email || !formData.phoneNumber || !formData.country || !formData.hasPassport || !formData.purpose) {
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
@@ -37,6 +39,23 @@ export async function POST(request: NextRequest) {
       visit: '✈️'
     }
     
+    const passportEmoji = {
+      yes: '✅',
+      no: '❌',
+      expired: '🗓️',
+      applying: '📋'
+    }
+    
+    const getPassportStatus = (status: string) => {
+      const statusMap = {
+        yes: 'Yes, has passport',
+        no: 'No passport',
+        expired: 'Has expired passport',
+        applying: 'Currently applying for passport'
+      }
+      return statusMap[status as keyof typeof statusMap] || status
+    }
+
     const message = `
 🚨 *New Client Inquiry - Lakegn Consultancy*
 
@@ -44,6 +63,8 @@ export async function POST(request: NextRequest) {
 📅 *Date of Birth:* ${formData.dateOfBirth}
 📞 *Phone:* ${formData.phoneNumber}
 📧 *Email:* ${formData.email}
+🌍 *Country Applying To:* ${formData.country.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+${passportEmoji[formData.hasPassport as keyof typeof passportEmoji] || '📄'} *Passport Status:* ${getPassportStatus(formData.hasPassport)}
 ${purposeEmoji[formData.purpose as keyof typeof purposeEmoji] || '📝'} *Purpose:* ${formData.purpose.toUpperCase()}
 
 ⏰ *Submitted:* ${new Date().toLocaleString()}

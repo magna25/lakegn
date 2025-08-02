@@ -78,6 +78,14 @@ export const am = {
     fullName: "ሙሉ ስም",
     dateOfBirth: "የልደት ቀን",
     phoneNumber: "ስልክ ቁጥር",
+    country: "የሚሄዱበት ሀገር",
+    hasPassport: "ፓስፖርት አለዎት?",
+    passportOptions: {
+      yes: "አዎ፣ ፓስፖርት አለኝ",
+      no: "የለኝም፣ ፓስፖርት የለኝም",
+      expired: "ጊዜው ያለፈ ፓስፖርት አለኝ",
+      applying: "አሁን ፓስፖርት ለማግኘት እያመለከትኩ ነው"
+    },
     purpose: "የማመልከቻ ዓላማ",
     purposeOptions: {
       school: "ትምህርት",

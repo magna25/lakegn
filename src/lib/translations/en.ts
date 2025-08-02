@@ -78,6 +78,14 @@ export const en = {
     fullName: "Full Name",
     dateOfBirth: "Date of Birth",
     phoneNumber: "Phone Number",
+    country: "Country Applying To",
+    hasPassport: "Do you have a passport?",
+    passportOptions: {
+      yes: "Yes, I have a passport",
+      no: "No, I don't have a passport",
+      expired: "I have an expired passport",
+      applying: "I'm currently applying for a passport"
+    },
     purpose: "Purpose of Application",
     purposeOptions: {
       school: "School",
